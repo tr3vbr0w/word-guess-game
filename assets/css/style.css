@@ -1,0 +1,14 @@
+.jumbotron {
+    background-image: url(https://www.soodexlabs.com/img/apps/Hangman/Website_banner.jpg);
+    background-size: inherit;
+    background-repeat: no-repeat;
+    color: aqua;
+    height: 389px;
+}
+html, body, .container {
+    background-color: black;
+}
+.game {
+    border: 1px solid white;
+    height: 300px;
+}
