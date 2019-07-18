@@ -1,5 +1,5 @@
 .jumbotron {
-    background-image: url(https://www.soodexlabs.com/img/apps/Hangman/Website_banner.jpg);
+    background-image: url(https://1o3i8q3rjpxk34gtxw1gc6jm-wpengine.netdna-ssl.com/media/2017/04/Wasatch-Peaks-Ranch-winter2017-cropped-1024x512.jpg);
     background-size: inherit;
     background-repeat: no-repeat;
     color: aqua;
@@ -11,4 +11,12 @@ html, body, .container {
 .game {
     border: 1px solid white;
     height: 300px;
+    
+}
+h1, h3, li, span {
+    color: white;
+}
+li {
+    display: inline;
+    list-style: none;
 }

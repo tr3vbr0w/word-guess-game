@@ -7,31 +7,34 @@
         correctGuess:[],
         incorrectGuess:[],
         
-    
+        
+                
     }
 
     //Set Computer Guess to select a peak name within array of mountain names based on math.ramdom function   
-    compGuess = game.mtnNames[Math.floor(Math.random()*game.mtnNames.length)];
-    console.log(compGuess);
+    game.compGuess = game.mtnNames[Math.floor(Math.random()*game.mtnNames.length)];
+    console.log(game.compGuess);
 
-    //Creates empty list within #word-container to place a series of list elements corresponding with the total number of letters in the word
+    //Creates empty list within #word-container to place a series of list elements containing "_ "corresponding with the total number of letters in the word
     
-    var compGuessList = document.getElementById("word-container");
+    for (let i = 0; i < game.compGuess.length; i++) { 
+        var letter = document.createElement("li");
+        var placeholder = document.createTextNode("_ ");
+        letter.appendChild(placeholder);
+        document.getElementById("word-container").appendChild(letter);
+             
+    }
     
     
-    //Creates a placeholder of _ for each letter within compGuess; make sure to change <li> to inline element to display on same line in css
-    function createListItem (text) {
-        for (let i = 0; i < compGuess.length; i++){ 
-            var letter = document.createElement("li");
-            var placeholder = document.createTextNode("_");
-            letter.appendChild(placeholder);
-            console.log(letter);
-    }}
-    // function addListItem (parent, children) {
-    //     children.
-    // }
+    
+    //Runs through code and checks userGuess vs individual letters in computerGuess
+    // document.onkeypress(event.keyCode {
 
-    // }
+    // })
+    
+    
+ 
+ 
     
     
   
