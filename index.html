@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="JavaScript" href="assets/javascript/game.js">
     <title>Hangman</title>
   </head>
   <body>
@@ -21,11 +22,16 @@
             <div class="game col-6"></div>
             <!-- Container displaying the actual gamer -->
             <div class="game col-6">
-
+                <h1>Press any key to begin!</h1>
+                <h3>Wins:</h3><span id="numWins">numWins</span>
+                <h3>Losses:</h3><span class="numLosses">numLosses</span>
+                <h3>Guesses Remaining</h3><span class="guess-remaining">noGuesses</span>
+                
             </div>
         </div>
     </div>
     <!-- Optional JavaScript -->
+    <script src="assets/javascript/game.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
