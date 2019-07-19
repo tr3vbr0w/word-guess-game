@@ -1,6 +1,6 @@
 .jumbotron {
     background-image: url(https://1o3i8q3rjpxk34gtxw1gc6jm-wpengine.netdna-ssl.com/media/2017/04/Wasatch-Peaks-Ranch-winter2017-cropped-1024x512.jpg);
-    background-size: inherit;
+    background-size: 100%;
     background-repeat: no-repeat;
     color: aqua;
     height: 389px;
@@ -12,6 +12,9 @@ html, body, .container {
     border: 1px solid white;
     height: 300px;
     
+}
+h3 {
+    display: inline;
 }
 h1, h3, li, span {
     color: white;
