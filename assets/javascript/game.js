@@ -4,8 +4,10 @@
         wins: 0,
         losses: 0,
         guessRemaining: 12,
+        guessR: "",
         mtnNames:["timponogos", "olympus", "jupiter", "sunset", "superior", "wolverine", "lone peak", "gobblers knob"],
         compGuess:[],
+        compGuessArray: [],
         userGuess: [],
         correctGuess:[],
         incorrectGuess:[],
@@ -20,10 +22,10 @@
         
                 
     }
-//This code works on refresh, but having difficulty setting to onkeypress
+    //Functions in order to store 
     function selectWord() {
         game.compGuess = game.mtnNames[Math.floor(Math.random()*game.mtnNames.length)];
-        isPlaying = true;
+        game.isPlaying = true;
         console.log(game.compGuess);
     }
     function createListPlaceholder() {
@@ -32,37 +34,62 @@
             var placeholder = document.createTextNode("_ ");
             letter.appendChild(placeholder);
             document.getElementById("word-container").appendChild(letter);
-            isPlaying = true;
+            
         }
     }
     function guessCount() {
         game.guessRemaining = game.guessRemaining - 1;
-        return  game.guessRemaining;
+        game.guessR = game.guessRemaining.toString();
+        console.log(game.guessR);
     }
+    function findLetter() { //setting up to find the userGuess within the compGuessArray
+        for (let i = 0; i < game.compGuess.length; i++) {
+            if (game.userGuess === game.compGuess[i]) {
+                console.log(game.compGuess[i]);
+            }
+        }
+    
+    }
+    
+    //win and loss count function
+
 
     
     
        
-    
-    //Runs through code and checks userGuess vs individual letters in computerGuess
+    // look up nth child in js for the list items
+    //Initializes game, generates placeholders for 
     document.onkeypress = function(event) {
-        selectWord(game.mtnNames);
-        createListPlaceholder(game.compGuess);
-        guessCount(game.guessRemaining);
-        document.getElementById("begin").textContent = "press a key, take a guess";
-        game.guessRemaining = document.getElementById("guess-remaining"); //does not work
-        game.isPlaying = true;
+        if (game.isPlaying === false)   {
+            selectWord(game.mtnNames);
+            game.compGuessArray = game.compGuess.split(); //Setting compGuess Variable to array to view index of your string
+            createListPlaceholder(game.compGuess);
+            guessCount(game.guessRemaining);
+            document.getElementById("begin").textContent = "press a key, take a guess";
+            document.getElementById("guess-remaining").textContent = game.guessR; //does not work
+        }           
         
-        var l = event.key.toLowerCase();
-        // For loop that runs through each letter of game.compguess to check to match l to a letter within the array  
-        for (let i = 0; i < game.compGuess.length; i++) {
-            if (l === game.compGuess[i])
+        var userGuess = event.key.toLowerCase();
+        // For loop that runs through each letter of game.compguess to check to match l to a letter within the array
+        //check index, split word
+        if (game.isPlaying === true) {
+            for (let i = 0; i < game.compGuess.length; i++) {
                 
+                if (userGuess === game.compGuess[i]) {
+                    
+                }
+                else {
+                    
+                } 
+            } 
         }
-            
-        // }
-
+        findLetter(this);
     }
+
+            
+   
+
+    
 
     
     
@@ -87,4 +114,8 @@
 
         
    
-//
+//compare key guess against work
+//win conditions / loss conditions
+//save already guessed letters
+//set parameters for user guess
+//increment wins or losses
