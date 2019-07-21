@@ -6,8 +6,8 @@
         guessRemaining: 12,
         guessR: "",
         mtnNames:["timponogos", "olympus", "jupiter", "sunset", "superior", "wolverine", "lone peak", "gobblers knob"],
-        compGuess:[],
-        compGuessArray: [],
+        compGuess: "",
+        compGuessArr: [],
         userGuess: [],
         correctGuess:[],
         incorrectGuess:[],
@@ -26,7 +26,8 @@
     function selectWord() {
         game.compGuess = game.mtnNames[Math.floor(Math.random()*game.mtnNames.length)];
         game.isPlaying = true;
-        console.log(game.compGuess);
+        game.compGuessArr = game.compGuess.split("");
+        console.log(game.compGuessArr);
     }
     function createListPlaceholder() {
         for (let i = 0; i < game.compGuess.length; i++) { 
@@ -44,16 +45,31 @@
     }
     function findLetter() { //setting up to find the userGuess within the compGuessArray
         for (let i = 0; i < game.compGuess.length; i++) {
-            if (game.userGuess === game.compGuess[i]) {
-                console.log(game.compGuess[i]);
+            if (game.userGuess === game.compGuessArr[i]) {
+                console.log(game.compGuessArr[i]);
             }
         }
     
     }
+    function matchCheck() {
+        for (let i = 0; i < game.compGuess.length; i++) {
+            if (game.userGuessArr === game.compGuessArr[i]){
+                console.log(i);
+            }
+           
+        } 
+    }
     
     //win and loss count function
 
-
+    // User guess to list replacement, will mess with pending recognizing guest index matching
+    
+    // if (game.userGuess === game.compGuessArr[i]) {
+    //     var letter = document.createTextNode(event.key);
+    //     var item = document.getElementById("word-container").childNodes[i];
+    //     letter.replaceChild(event.key, item.game.compGuessArr[i]);
+    //     game.compGuessArr[i].replaceChild(game.userGuess); 
+    // }
     
     
        
@@ -62,28 +78,22 @@
     document.onkeypress = function(event) {
         if (game.isPlaying === false)   {
             selectWord(game.mtnNames);
-            game.compGuessArray = game.compGuess.split(); //Setting compGuess Variable to array to view index of your string
+            // game.compGuessArr = game.compGuess.split(); //Setting compGuess Variable to array to view index of your string
             createListPlaceholder(game.compGuess);
             guessCount(game.guessRemaining);
             document.getElementById("begin").textContent = "press a key, take a guess";
             document.getElementById("guess-remaining").textContent = game.guessR; //does not work
         }           
         
-        var userGuess = event.key.toLowerCase();
+        game.userGuess = event.key.toLowerCase();
+        console.log(game.userGuess);
+        matchCheck(game.userGuess);
         // For loop that runs through each letter of game.compguess to check to match l to a letter within the array
         //check index, split word
         if (game.isPlaying === true) {
-            for (let i = 0; i < game.compGuess.length; i++) {
-                
-                if (userGuess === game.compGuess[i]) {
-                    
-                }
-                else {
-                    
-                } 
-            } 
+            
         }
-        findLetter(this);
+        // findLetter(this);
     }
 
             
