@@ -8,9 +8,9 @@
         mtnNames:["timponogos", "olympus", "jupiter", "sunset", "superior", "wolverine", "lone peak", "gobblers knob"],
         compGuess: "",
         compGuessArr: [],
-        userGuess: [],
+        userGuess: "",
         correctGuess:[],
-        incorrectGuess:[],
+        incorrectGuess:[0],
         isPlaying: false,
         
         //Set Computer Guess to select a peak name within array of mountain names based on math.ramdom function   
@@ -43,21 +43,23 @@
         game.guessR = game.guessRemaining.toString();
         console.log(game.guessR);
     }
-    function findLetter() { //setting up to find the userGuess within the compGuessArray
-        for (let i = 0; i < game.compGuess.length; i++) {
-            if (game.userGuess === game.compGuessArr[i]) {
-                console.log(game.compGuessArr[i]);
-            }
-        }
     
-    }
     function matchCheck() {
         for (let i = 0; i < game.compGuess.length; i++) {
-            if (game.userGuessArr === game.compGuessArr[i]){
+            if (game.userGuess === game.compGuessArr[i]){
                 console.log(i);
             }
-           
-        } 
+             
+            if (game.userGuess !== game.compGuessArr[i]){
+            game.incorrectGuess.push(game.userGuess);
+            // document.getElementById()
+            var letter = document.createElement("li");
+            var guess = document.createTextNode(game.userGuess);
+            letter.appendChild(guess);
+            document.getElementById("guess-wrong").appendChild(letter);
+            }
+        }
+        guessCount(game.guessRemaining);    
     }
     
     //win and loss count function
@@ -79,19 +81,18 @@
         if (game.isPlaying === false)   {
             selectWord(game.mtnNames);
             // game.compGuessArr = game.compGuess.split(); //Setting compGuess Variable to array to view index of your string
-            createListPlaceholder(game.compGuess);
+            createListPlaceholder(game.compGuessArr);
             guessCount(game.guessRemaining);
             document.getElementById("begin").textContent = "press a key, take a guess";
             document.getElementById("guess-remaining").textContent = game.guessR; //does not work
         }           
         
         game.userGuess = event.key.toLowerCase();
-        console.log(game.userGuess);
-        matchCheck(game.userGuess);
+     
         // For loop that runs through each letter of game.compguess to check to match l to a letter within the array
         //check index, split word
         if (game.isPlaying === true) {
-            
+            console.log(matchCheck(game.userGuess));
         }
         // findLetter(this);
     }
