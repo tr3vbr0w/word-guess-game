@@ -2,12 +2,13 @@
     //Game object containing methods
     var game = {
         wins: 0,
-        losses: 0,
+        loss: 0,
         guessRemaining: 12,
         guessR: "",
         mtnNames:["timponogos", "olympus", "jupiter", "sunset", "superior", "wolverine", "lone peak", "gobblers knob"],
         compGuess: "",
         compGuessArr: [],
+        compGuessStr: [],
         userGuess: "",
         correctGuess:[],
         incorrectGuess:[0],
@@ -22,79 +23,102 @@
         
                 
     }
-    //Functions in order to store 
+    
+    var winsDisplay = document.getElementById("numWins");
+    var lossDisplay = document.getElementById("numLosses");
+    var guessRemainDisplay = document.getElementById("guess-remaining"); 
+
+    //Functions in order to store computer guess as an array rather than a string
     function selectWord() {
         game.compGuess = game.mtnNames[Math.floor(Math.random()*game.mtnNames.length)];
         game.isPlaying = true;
         game.compGuessArr = game.compGuess.split("");
         console.log(game.compGuessArr);
     }
+    function wrongGuess() {
+        game.incorrectGuess.push(game.userGuess);
+        var letter = document.createElement("li");
+        var guess = document.createTextNode(game.userGuess + " ");
+        letter.appendChild(guess);
+        document.getElementById("guess-wrong").appendChild(letter);
+    }
     function createListPlaceholder() {
         for (let i = 0; i < game.compGuess.length; i++) { 
-            var letter = document.createElement("li");//need something here to assign id to each individual list item
-            var placeholder = document.createTextNode("_ ");
-            letter.appendChild(placeholder);
-            document.getElementById("word-container").appendChild(letter);
-            
+            game.compGuessStr.push("_ ");
         }
+        // var letter = document.createElement("span");
+        // var placeholder = document.createTextNode(game.compGuessStr);
+        // console.log(game.compGuessStr);
+        // letter.appendChild(placeholder);
+        // document.getElementById("word-container").appendChild(letter);
+        document.getElementById("word-container").textContent = game.compGuessStr;
+        
     }
     function guessCount() {
         game.guessRemaining = game.guessRemaining - 1;
         game.guessR = game.guessRemaining.toString();
-        console.log(game.guessR);
+        console.log("Guesses remaining" + game.guessR);
     }
     
     function matchCheck() {
-        for (let i = 0; i < game.compGuess.length; i++) {
-            if (game.userGuess === game.compGuessArr[i]){
-                console.log(i);
-            }
-             
-            if (game.userGuess !== game.compGuessArr[i]){
-            game.incorrectGuess.push(game.userGuess);
-            // document.getElementById()
-            var letter = document.createElement("li");
-            var guess = document.createTextNode(game.userGuess);
-            letter.appendChild(guess);
-            document.getElementById("guess-wrong").appendChild(letter);
-            }
-        }
-        guessCount(game.guessRemaining);    
+        // for (let i = 0; i < game.compGuess.length; i++) {
+            if (game.compGuess.includes(game.userGuess)) {
+                // game.compGuessArr[i].replace(game.compGuess[i]);
+                // console.log("Matching index " + i);
+                document.getElementById("word-container").textContent = game.compGuessStr;
+                var outcome = true;
+                
+            } else {
+                var outcome = false;
+                wrongGuess();
+        
+            }       
+        console.log(outcome);
     }
+
+
+
+    
     
     //win and loss count function
 
     // User guess to list replacement, will mess with pending recognizing guest index matching
     
-    // if (game.userGuess === game.compGuessArr[i]) {
-    //     var letter = document.createTextNode(event.key);
-    //     var item = document.getElementById("word-container").childNodes[i];
-    //     letter.replaceChild(event.key, item.game.compGuessArr[i]);
-    //     game.compGuessArr[i].replaceChild(game.userGuess); 
-    // }
-    
+ 
     
        
     // look up nth child in js for the list items
     //Initializes game, generates placeholders for 
-    document.onkeypress = function(event) {
+    document.onkeypress = function(event) { 
+        game.userGuess = event.key;
+      
+      //these two are running for every case
         if (game.isPlaying === false)   {
+            // game.isPlaying = true;
             selectWord(game.mtnNames);
-            // game.compGuessArr = game.compGuess.split(); //Setting compGuess Variable to array to view index of your string
             createListPlaceholder(game.compGuessArr);
-            guessCount(game.guessRemaining);
             document.getElementById("begin").textContent = "press a key, take a guess";
-            document.getElementById("guess-remaining").textContent = game.guessR; //does not work
-        }           
+            matchCheck();
+    
+
         
-        game.userGuess = event.key.toLowerCase();
-     
-        // For loop that runs through each letter of game.compguess to check to match l to a letter within the array
-        //check index, split word
-        if (game.isPlaying === true) {
-            console.log(matchCheck(game.userGuess));
+    //     // For loop that runs through each letter of game.compguess to check to match l to a letter within the array
+    //     //check index, split word
+        } else if (game.isPlaying === true) {
+            matchCheck();
+            
+        
         }
-        // findLetter(this);
+        if(game.guessR === 0){
+            alert("You Lose");
+            game.losses = game.losses + 1;
+            game.guessR = 12;
+            
+        }
+        guessCount();
+        guessRemainDisplay.textContent = game.guessR; //does not work
+        winsDisplay.textContent = "Wins: " + game.wins
+        lossDisplay.textContent = "Losses: " + game.loss
     }
 
             
