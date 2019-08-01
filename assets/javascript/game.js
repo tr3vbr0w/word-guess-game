@@ -1,79 +1,84 @@
 //Display blank game, containing letters the length of the word in underscore blank spaces, and "play any key to start" on screen, placeholder image in left box, game default screen on right, initialize all variables to empty arrays or 0, create variables and functions within object
     //Game object containing methods
-    var game = {
-        wins: 0,
-        loss: 0,
-        guessRemaining: 12,
-        guessR: "",
-        mtnNames:["timponogos", "olympus", "jupiter", "sunset", "superior", "wolverine", "lone peak", "gobblers knob"],
-        compGuess: "",
-        compGuessArr: [],
-        compGuessStr: [],
-        userGuess: "",
-        correctGuess:[],
-        incorrectGuess:[0],
-        isPlaying: false,
-        
-        //Set Computer Guess to select a peak name within array of mountain names based on math.ramdom function   
-        
-        //Creates empty list within #word-container to place a series of list elements containing "_ "corresponding with the total number of letters in the word
-        
-
-        
-        
-                
-    }
     
+    var wins = 0;
+    var loss = 0;
+    var guessRemaining = 12;
+    // var guessR = "";
+    var mtnNames =["timponogos", "olympus", "jupiter", "sunset", "superior", "wolverine", "lone peak", "gobblers knob"]
+    var compGuess = "";
+    var compGuessArr = [];
+    var compGuessStr = [];
+    var userGuess = "";
+    var correctGuess = [];
+    var incorrectGuess = [0];
+    var isPlaying = false;
     var winsDisplay = document.getElementById("numWins");
     var lossDisplay = document.getElementById("numLosses");
     var guessRemainDisplay = document.getElementById("guess-remaining"); 
-
+        
+    //Set Computer Guess to select a peak name within array of mountain names based on math.ramdom function   
+    //Creates empty list within #word-container to place a series of list elements containing "_ "corresponding with the total number of letters in the word 
+    
     //Functions in order to store computer guess as an array rather than a string
     function selectWord() {
-        game.compGuess = game.mtnNames[Math.floor(Math.random()*game.mtnNames.length)];
-        game.isPlaying = true;
-        game.compGuessArr = game.compGuess.split("");
-        console.log(game.compGuessArr);
+        compGuess = mtnNames[Math.floor(Math.random()*mtnNames.length)];
+        isPlaying = true;
+        compGuessArr = compGuess.split("");
+        // console.log(compGuessArr);
     }
+
     function wrongGuess() {
-        game.incorrectGuess.push(game.userGuess);
+        incorrectGuess.push(userGuess);
         var letter = document.createElement("li");
-        var guess = document.createTextNode(game.userGuess + " ");
+        var guess = document.createTextNode(userGuess + " ");
         letter.appendChild(guess);
         document.getElementById("guess-wrong").appendChild(letter);
     }
+
     function createListPlaceholder() {
-        for (let i = 0; i < game.compGuess.length; i++) { 
-            game.compGuessStr.push("_ ");
+        for (let i = 0; i < compGuess.length; i++) { 
+            compGuessStr.push("_ ");
         }
         // var letter = document.createElement("span");
-        // var placeholder = document.createTextNode(game.compGuessStr);
-        // console.log(game.compGuessStr);
+        // var placeholder = document.createTextNode(compGuessStr);
+        // console.log(compGuessStr);
         // letter.appendChild(placeholder);
         // document.getElementById("word-container").appendChild(letter);
-        document.getElementById("word-container").textContent = game.compGuessStr;
+        document.getElementById("word-container").textContent = compGuessStr;
         
     }
     function guessCount() {
-        game.guessRemaining = game.guessRemaining - 1;
-        game.guessR = game.guessRemaining.toString();
-        console.log("Guesses remaining" + game.guessR);
+        guessRemaining = guessRemaining - 1;
+        guessR = guessRemaining.toString();
+        // console.log("Guesses remaining" + guessR);
     }
     
-    function matchCheck() {
-        // for (let i = 0; i < game.compGuess.length; i++) {
-            if (game.compGuess.includes(game.userGuess)) {
-                // game.compGuessArr[i].replace(game.compGuess[i]);
+    function matchCheck(userGuess) {
+        if (compGuess.includes(userGuess)) {
+            for (let i = 0; i < compGuess.length; i++) {
+                if (userGuess === compGuess[i]) {
+                    // console.log(i);
+                    compGuessStr.splice(i, 1, userGuess);
+                    
+
+                }
+
+            }
+                // console.log(compGuessStr);
+
+
+                // compGuessArr[i].replace(compGuess[i]);
                 // console.log("Matching index " + i);
-                document.getElementById("word-container").textContent = game.compGuessStr;
-                var outcome = true;
+                document.getElementById("word-container").textContent = compGuessStr;
+                // var outcome = true;
                 
             } else {
                 var outcome = false;
                 wrongGuess();
         
             }       
-        console.log(outcome);
+        // console.log(outcome);
     }
 
 
@@ -90,35 +95,36 @@
     // look up nth child in js for the list items
     //Initializes game, generates placeholders for 
     document.onkeypress = function(event) { 
-        game.userGuess = event.key;
+        userGuess = event.key;
       
       //these two are running for every case
-        if (game.isPlaying === false)   {
-            // game.isPlaying = true;
-            selectWord(game.mtnNames);
-            createListPlaceholder(game.compGuessArr);
+        if (isPlaying === false)   {
+            // isPlaying = true;
+            selectWord(mtnNames);
+            createListPlaceholder(compGuessArr);
             document.getElementById("begin").textContent = "press a key, take a guess";
-            matchCheck();
+            matchCheck(userGuess);
     
 
         
-    //     // For loop that runs through each letter of game.compguess to check to match l to a letter within the array
+    //     // For loop that runs through each letter of compguess to check to match l to a letter within the array
     //     //check index, split word
-        } else if (game.isPlaying === true) {
+        } else if (isPlaying === true) {
             matchCheck();
             
         
         }
-        if(game.guessR === 0){
+        if(guessRemaining === 0){
             alert("You Lose");
-            game.losses = game.losses + 1;
-            game.guessR = 12;
+            loss = loss + 1;
+            guessRemaining = 12;
+            isPlaying = false;
+            lossDisplay.textContent = "Losses: " + loss
             
         }
         guessCount();
-        guessRemainDisplay.textContent = game.guessR; //does not work
-        winsDisplay.textContent = "Wins: " + game.wins
-        lossDisplay.textContent = "Losses: " + game.loss
+        guessRemainDisplay.textContent = guessR; //does not work
+        winsDisplay.textContent = "Wins: " + wins
     }
 
             
